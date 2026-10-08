@@ -1,6 +1,7 @@
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { IType } from "./types/type";
 import ItemCard from "./components/ItemCard";
+import Banner from "./components/Banner";
 
 export default async function Home() {
   //all products
@@ -24,28 +25,26 @@ export default async function Home() {
   const priceDownData = sortedDownData.slice(0, 6);
   // console.log(priceDownData);
 
-  // date
-  const date = new Date().toLocaleDateString("bn-BD", {
-    dateStyle: "full",
-  });
-
+  // bangla number
+  const toBanglaNumber = (value: number | string) => {
+    return String(value).replace(/\d/g, (digit) => "০১২৩৪৫৬৭৮৯"[Number(digit)]);
+  };
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 pt-7 pb-20">
       <div>
-        {date}
-        banner
+        <Banner />
       </div>
 
-      <section className="px-4 sm:px-8 md:px-10 lg:px-0 flex flex-col gap-8">
+      <section className="px-4 sm:px-8 md:px-10 lg:px-0 flex flex-col gap-10">
         {/* দাম বেড়েছে || price up part*/}
         <div>
           <h2 className="flex items-center gap-1 font-bold text-black py-3">
             <span className="text-red-600">
-              <FaCaretUp size={20} />
+              <FaCaretUp size={26} />
             </span>
             আজ দাম বেড়েছে
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 ">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-5 ">
             {priceUpData.map((item) => (
               <ItemCard key={item.id} data={item} />
             ))}
@@ -56,12 +55,12 @@ export default async function Home() {
         <div>
           <h2 className="flex items-center gap-1 font-bold text-black py-3">
             <span className="text-green-600">
-              <FaCaretDown size={20} />
+              <FaCaretDown size={26} />
             </span>
             আজ দাম কমেছে
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 ">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-5 ">
             {priceDownData.map((item) => (
               <ItemCard key={item.id} data={item} />
             ))}
@@ -69,9 +68,10 @@ export default async function Home() {
         </div>
 
         {/* সব পণ্য || all product part*/}
-        <div>
-          <h2 className="font-bold text-black py-3">সব পণ্য</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 ">
+        <div id="all">
+          <h2 className="font-bold text-black py-3 pb-1">সব পণ্য</h2>
+          <p className="font-normal text-[14px] text-[#1D271F] opacity-70 pb-3">{`মোট ${toBanglaNumber(data.length)}টি পণ্য দেখানো হচ্ছে`}</p>
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-5 ">
             {data.map((item) => (
               <ItemCard key={item.id} data={item} />
             ))}
