@@ -15,7 +15,8 @@ export default async function ProductDetailsPage({ params }: Props) {
   console.log(productId, categoryId);
 
   const res = await fetch(
-    `https://api.abcz.workers.dev/api/bazardor/products/${productId}`,
+    // `https://api.abcz.workers.dev/api/bazardor/products/${productId}`,
+    `https://openapi.programming-hero.com/api/bazardor/products/${productId}`,
     { next: { revalidate: 60 } },
   );
 

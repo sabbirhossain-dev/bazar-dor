@@ -13,13 +13,15 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 
   const res = await fetch(
     // `https://api.api-store.workers.dev/api/bazardor/products?category=${categoryId}`,
-    `https://api.abcz.workers.dev/api/bazardor/products?category=${categoryId}`,
+    // `https://api.abcz.workers.dev/api/bazardor/products?category=${categoryId}`,
+    `https://openapi.programming-hero.com/api/bazardor/products?category=${categoryId}`,
   );
   const categoryData = await res.json();
 
   const categoryRes = await fetch(
     // `https://api.api-store.workers.dev/api/bazardor/categories/${categoryId}`,
-    `https://api.abcz.workers.dev/api/bazardor/categories/${categoryId}`,
+    // `https://api.abcz.workers.dev/api/bazardor/categories/${categoryId}`,
+    `https://openapi.programming-hero.com/api/bazardor/categories/${categoryId}`,
   );
 
   const categoryItem = await categoryRes.json();
