@@ -28,27 +28,27 @@ const MarqueeComponent = async () => {
   };
 
   return (
-    <div className="bg-white">
-      <MarqueeText duration={15} direction="right">
+    <div className="bg-white ">
+      <MarqueeText duration={12} direction="right">
         <div className="flex">
           {data.map((item: IType) => (
             <div
               key={item.id}
               className="flex gap-1 items-center border-r px-5 py-3 border-b border-gray-200 hover:bg-gray-100 transition-opacity duration-300"
             >
-              <p className="font-medium text-[14px] text-[#1D271F] flex items-center gap-2">
+              <p className="font-medium text-[12px] md:text-[14px] text-[#1D271F] flex items-center gap-2">
                 {`${item.categoryIcon} ${item.nameBn} `}
                 <span className="font-normal font-serif">
                   {`${toBanglaNumber(item.today)} টাকা/${unitBn[item.unit] || item.unit}`}
                 </span>
               </p>
-              <p className="flex items-center">
+              <p className="flex items-center text-[12px] md:text-[14px]">
                 {item.change.dir === "up" && (
-                  <FaCaretUp size={24} className="text-red-600" />
+                  <FaCaretUp className="text-red-600 text-[16px] md:text-[22px]" />
                 )}
 
                 {item.change.dir === "down" && (
-                  <FaCaretDown size={24} className="text-green-600" />
+                  <FaCaretDown className="text-green-600 text-[16px] md:text-[22px]" />
                 )}
 
                 {item.change.dir === "flat" && (

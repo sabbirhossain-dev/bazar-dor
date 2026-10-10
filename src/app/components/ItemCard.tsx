@@ -3,7 +3,6 @@ import { IType } from "../types/type";
 
 const ItemCard = ({ data }: { data: IType }) => {
   const isDown = data.change.dir === "down";
-  console.log(data);
 
   const toBanglaNumber = (value: number | string) => {
     return String(value).replace(/\d/g, (digit) => "০১২৩৪৫৬৭৮৯"[Number(digit)]);
@@ -26,17 +25,17 @@ const ItemCard = ({ data }: { data: IType }) => {
           {/* Top section */}
           <div className="flex items-center gap-3">
             {/* Item icon */}
-            <div className="flex justify-center items-center p-2 px-3 rounded-xl bg-[#F0F4F0] text-[25px]">
+            <div className="flex justify-center items-center p-2 px-3 rounded-xl bg-[#F0F4F0] text-[22px] md:text-[25px]">
               {data.image}
             </div>
 
             {/* Item name */}
             <div className="min-w-0">
-              <h3 className="text-[16px] leading-[21px] font-semibold text-[#1D271F]">
+              <h3 className="text-[14px] md:text-[16px] leading-[21px] font-semibold text-[#1D271F]">
                 {data.nameBn}
               </h3>
 
-              <p className="text-[12px] leading-[16px] text-[#1D271F]">
+              <p className="text-[10px] md:text-[12px] leading-[16px] text-[#1D271F]">
                 প্রতি {unitBn[data.unit] || data.unit}
               </p>
             </div>
@@ -45,19 +44,21 @@ const ItemCard = ({ data }: { data: IType }) => {
           {/* Bottom section */}
           <div className="mt-3 flex items-end justify-between gap-2">
             <div>
-              <p className="mb-0.5 text-[12px] leading-[14px] text-[#1D271F]">
+              <p className="mb-0.5 text-[10px] md:text-[12px] leading-[14px] text-[#1D271F]">
                 আজকের দাম
               </p>
 
-              <p className="text-[20px] leading-[20px] font-bold text-[#1D271F]">
+              <p className="text-[16px] md:text-[20px] leading-[20px] font-bold text-[#1D271F]">
                 {toBanglaNumber(data.today)}{" "}
-                <span className="text-[14px] font-medium">টাকা</span>
+                <span className="text-[12px] md:text-[14px] font-medium">
+                  টাকা
+                </span>
               </p>
             </div>
 
             {/* Price change badge */}
             <div
-              className={`mb-0.5 flex items-center gap-1 rounded-full px-2 py-1.5 text-[10px] leading-none font-bold ${
+              className={`mb-0.5 flex items-center gap-1 rounded-full px-2 py-1.5 text-[9px] md:text-[10px] leading-none font-bold ${
                 isDown
                   ? "bg-[#F0F5F0] text-[#1A9951]"
                   : data.change.dir === "up"

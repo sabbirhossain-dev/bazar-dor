@@ -38,10 +38,10 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
       <div className="flex gap-2 items-center p-4 bg-white border border-gray-200 rounded-lg my-6">
         <p className="text-3xl">{categoryItem.icon}</p>
         <div>
-          <h2 className="font-bold text-[24px] text-[#1D271F]">
+          <h2 className="font-bold text-[18px] md:text-[24px] text-[#1D271F]">
             {categoryItem.nameBn}
           </h2>
-          <p className="font-normal text-[14px] text-[#1D271F] opacity-70">{`${toBanglaNumber(categoryData.length)}টি পণ্যের আজকের দাম ও পরিবর্তন`}</p>
+          <p className="font-normal text-[12px] md:text-[14px] text-[#1D271F] opacity-70">{`${toBanglaNumber(categoryData.length)}টি পণ্যের আজকের দাম ও পরিবর্তন`}</p>
         </div>
       </div>
 

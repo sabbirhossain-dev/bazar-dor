@@ -22,7 +22,7 @@ export default async function ProductDetailsPage({ params }: Props) {
 
   if (!res.ok) {
     return (
-      <main className="min-h-screen bg-[#F0F5F0] p-8 font-bangla text-center">
+      <main className="min-h-screen bg-[#F0F5F0] p-8 font-bangla text-center flex items-center justify-center">
         পণ্যটি খুঁজে পাওয়া যায়নি।
       </main>
     );
@@ -85,7 +85,7 @@ export default async function ProductDetailsPage({ params }: Props) {
     <main className="min-h-screen bg-[#F0F5F0] px-3 pt-4 pb-10 md:pb-30 font-bangla text-[#27332B] sm:px-5">
       <div className="mx-auto max-w-7xl">
         {/* Breadcrumb */}
-        <nav className="mb-4 flex items-center gap-2 text-[14px] text-[#1D271F] font-normal">
+        <nav className="mb-4 flex items-center gap-2 text-[12px] md:text-[14px] text-[#1D271F] font-normal">
           <Link href="/" className="hover:text-[#07883F]">
             হোম
           </Link>
@@ -105,36 +105,38 @@ export default async function ProductDetailsPage({ params }: Props) {
         {/* Product Header */}
         <section className="mb-3 flex flex-col justify-between items-center gap-4 rounded-[11px] border border-[#DFE8DF] bg-[#FAFCFA] p-3 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3">
-            <div className="flex h-[77px] w-[77px] shrink-0 items-center justify-center rounded-[10px] bg-[#F0F4F0] text-[26px] p-4">
+            <div className="flex h-[67px] w-[67px] md:h-[77px] md:w-[77px] shrink-0 items-center justify-center rounded-[10px] bg-[#F0F4F0] text-[20px] text-[26px] p-4">
               {product.image}
             </div>
 
             <div>
-              <h1 className="text-[30px] text-[#1D271F] leading-6 font-bold pt-2">
+              <h1 className="text-[20px] md:text-[30px] text-[#1D271F] leading-6 font-bold pt-2">
                 {product.nameBn}
               </h1>
-              <p className="text-[14px] text-[#1D271F] font-normal opacity-70 py-1">
+              <p className="text-[12px] md:text-[14px] text-[#1D271F] font-normal opacity-70 py-1">
                 প্রতি {unitBn[product.unit]}
                 {" · "}
                 {product.categoryNameBn}
               </p>
-              <p className="text-[14px] font-serif text-[#1D271F] font-normal">
+              <p className="text-[12px] md:text-[14px] font-serif text-[#1D271F] font-normal">
                 গতকালের তুলনায় আজকের দামের পরিবর্তন: {toBn(product.yesterday)} →{" "}
                 {toBn(product.today)} টাকা
               </p>
             </div>
           </div>
 
-          <div className="rounded-[10px] bg-[#F0F5F0] px-3 py-2 text-center sm:min-w-[74px]">
-            <p className="text-[14px] text-[#1D271F] opacity-70">আজকের দাম</p>
-            <p className="text-[30px] text-[#1D271F] font-bold">
+          <div className="rounded-[10px] bg-[#F0F5F0] px-3 py-2 text-center w-full md:w-32">
+            <p className="text-[12px] md:text-[14px] text-[#1D271F] opacity-70">
+              আজকের দাম
+            </p>
+            <p className="text-[22px] md:text-[30px] text-[#1D271F] font-bold">
               {toBn(product.today)}
             </p>
-            <p className="text-[14px] text-[#1D271F] opacity-70">
+            <p className="text-[12px] md:text-[14px] text-[#1D271F] opacity-70">
               টাকা / {product.unit === "kg" ? "কেজি" : product.unit}
             </p>
             <p
-              className={`mt-1 text-[14px] font-semibold ${
+              className={`mt-1 text-[12px] md:text-[14px] font-semibold ${
                 isUp ? "text-[#D03739]" : "text-[#07883F]"
               }`}
             >
@@ -145,7 +147,7 @@ export default async function ProductDetailsPage({ params }: Props) {
 
         {/* Price Summary and Market Table */}
         <section className="rounded-[11px] border border-[#DFE8DF] bg-[#FAFCFA] p-3 sm:p-4">
-          <h2 className="mb-2 text-[18px] text-[#1D271F] font-semibold">
+          <h2 className="mb-2 text-[16px] md:text-[18px] text-[#1D271F] font-semibold">
             দামের সারসংক্ষেপ
           </h2>
 
@@ -155,14 +157,18 @@ export default async function ProductDetailsPage({ params }: Props) {
                 key={item.title}
                 className="min-h-[55px] rounded-[10px] border border-[#E4EBE4] p-4"
               >
-                <p className="text-[12px] text-[#1D271F]">{item.title}</p>
+                <p className="text-[11px] md:text-[12px] text-[#1D271F]">
+                  {item.title}
+                </p>
                 <p
-                  className="text-[24px] leading-5 font-bold py-1"
+                  className="text-[20px] md:text-[24px] leading-5 font-bold py-1"
                   style={{ color: item.color }}
                 >
                   {price(item.value)}
                 </p>
-                <p className="text-[12px] text-[#1D271F]">{item.description}</p>
+                <p className="text-[11px] md:text-[12px] text-[#1D271F]">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
@@ -199,23 +205,23 @@ export default async function ProductDetailsPage({ params }: Props) {
                     key={`${market.market}-${market.division}`}
                     className="border-b border-[#DDE5DD] transition odd:bg-white even:bg-gray-100 hover:bg-[#EAF2EA]"
                   >
-                    <td className="whitespace-nowrap px-2 py-3 font-medium text-[#1D271F] text-[14px]">
+                    <td className="whitespace-nowrap px-2 py-3 font-medium text-[#1D271F] text-[12px] md:text-[14px]">
                       {market.market}
                     </td>
 
-                    <td className="whitespace-nowrap px-2 py-3 font-regular text-[#1D271F] text-[14px]">
+                    <td className="whitespace-nowrap px-2 py-3 font-regular text-[#1D271F] text-[12px] md:text-[14px]">
                       {market.division}
                     </td>
 
-                    <td className="whitespace-nowrap px-2 py-3 text-right font-regular font-serif text-[#1D271F] text-[14px]">
+                    <td className="whitespace-nowrap px-2 py-3 text-right font-regular font-serif text-[#1D271F] text-[12px] md:text-[14px]">
                       {price(market.min)}
                     </td>
 
-                    <td className="whitespace-nowrap px-2 py-3 text-right font-regular font-serif text-[#1D271F] text-[14px]">
+                    <td className="whitespace-nowrap px-2 py-3 text-right font-regular font-serif text-[#1D271F] text-[12px] md:text-[14px]">
                       {price(market.max)}
                     </td>
 
-                    <td className="whitespace-nowrap px-2 py-3 text-right font-serif font-semibold text-[#1D271F] text-[14px]">
+                    <td className="whitespace-nowrap px-2 py-3 text-right font-serif font-semibold text-[#1D271F] text-[12px] md:text-[14px]">
                       {price((market.min + market.max) / 2)}
                     </td>
                   </tr>

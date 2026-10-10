@@ -6,30 +6,23 @@ interface ICategory {
   icon: string;
 }
 
-const NavCategories = async () => {
-  const res = await fetch(
-    "https://openapi.programming-hero.com/api/bazardor/categories",
-    // "https://api.api-store.workers.dev/api/bazardor/categories",
-  );
-  // if (!res.ok) {
-  //   res = await fetch("https://api.abcz.workers.dev/api/bazardor/categories");
-  // }
-
-  const data = await res.json();
-
+const NavCategories = ({ data }: { data: ICategory[] }) => {
   return (
-    <nav className="py-3 bg-white border border-gray-200 border-l-0 border-r-0">
-      <div className="max-w-7xl mx-auto">
-        <ul className="flex gap-10 px-10">
+    <nav className="hidden md:flex border-y border-gray-200 bg-white py-3">
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 lg:px-0">
+        <ul className="flex justify-start gap-10 px-10">
           {data.map((item: ICategory) => (
-            <Link href={`/category/${item.id}`} key={item.id}>
-              <li className="flex items-center gap-1 font-bold text-[15px] cursor-pointer">
+            <li key={item.id}>
+              <Link
+                href={`/category/${item.id}`}
+                className="flex items-center gap-1 text-[15px] font-bold"
+              >
                 <span>{item.icon}</span>
-                <h3 className="font-semibold text-[12px] text-[1D271F]">
+                <span className="text-[12px] font-semibold text-[#1D271F]">
                   {item.nameBn}
-                </h3>
-              </li>
-            </Link>
+                </span>
+              </Link>
+            </li>
           ))}
         </ul>
       </div>
