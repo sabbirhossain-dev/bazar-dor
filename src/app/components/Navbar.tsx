@@ -28,10 +28,10 @@ const Navbar = () => {
             </Link>
 
             <div>
-              <h2 className="font-bold text-[16px] sm:text-[18px] md:text-[20px] text-black">
+              <h2 className="font-bold text-[16px] sm:text-[18px] md:text-[20px] text-[#1D271F]">
                 বাজার দর
               </h2>
-              <p className="font-normal opacity-80 text-[10px] sm:text-[11px] md:text-[12px] text-black">
+              <p className="font-normal opacity-80 text-[10px] sm:text-[11px] md:text-[12px] text-[#1D271F]">
                 {date}
               </p>
             </div>

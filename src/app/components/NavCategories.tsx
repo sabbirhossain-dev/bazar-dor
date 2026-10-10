@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface ICategory {
   id: string;
   nameBn: string;
@@ -6,8 +8,7 @@ interface ICategory {
 
 const NavCategories = async () => {
   const res = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/categories",
-    // "https://api.api-store.workers.dev/api/bazardor/categories",
+    "https://api.api-store.workers.dev/api/bazardor/categories",
   );
   const data = await res.json();
 
@@ -16,13 +17,14 @@ const NavCategories = async () => {
       <div className="max-w-7xl mx-auto">
         <ul className="flex gap-10 px-10">
           {data.map((item: ICategory) => (
-            <li
-              key={item.id}
-              className="flex items-center gap-1 font-bold text-[15px]"
-            >
-              <span>{item.icon}</span>
-              <h3>{item.nameBn}</h3>
-            </li>
+            <Link href={`/category/${item.id}`} key={item.id}>
+              <li className="flex items-center gap-1 font-bold text-[15px] cursor-pointer">
+                <span>{item.icon}</span>
+                <h3 className="font-semibold text-[12px] text-[1D271F]">
+                  {item.nameBn}
+                </h3>
+              </li>
+            </Link>
           ))}
         </ul>
       </div>
