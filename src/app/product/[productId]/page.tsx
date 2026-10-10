@@ -90,7 +90,8 @@ export default async function ProductDetailsPage({ params }: Props) {
           </Link>
           <span>›</span>
           <Link
-            href={`/category/${categoryId}`}
+            href={`/`}
+            // href={`/category/${categoryId}`}
             // href={`/`}
             className="hover:text-[#07883F]"
           >
