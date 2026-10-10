@@ -4,7 +4,7 @@ import logo from "../../../public/logo-icon.png";
 import Link from "next/link";
 import NavCategories from "./NavCategories";
 import MarqueeComponent from "./Marquee";
-
+import UserAuth from "./UserAuth";
 const Navbar = () => {
   const date = new Date().toLocaleDateString("bn-BD", {
     dateStyle: "full",
@@ -31,27 +31,14 @@ const Navbar = () => {
               <h2 className="font-bold text-[16px] sm:text-[18px] md:text-[20px] text-[#1D271F]">
                 বাজার দর
               </h2>
-              <p className="font-normal opacity-80 text-[10px] sm:text-[11px] md:text-[12px] text-[#1D271F]">
+              <p className="font-serif font-normal opacity-80 text-[10px] sm:text-[11px] md:text-[12px] text-[#1D271F]">
                 {date}
               </p>
             </div>
           </div>
 
           {/* buttons */}
-          <div className="flex gap-2 md:gap-5">
-            <Link
-              href="/sign-in"
-              className="font-bold text-[12px] md:text-[14px] text-black px-3 pt-2 pb-1.5 md:px-4 md:pt-3 md:pb-2.5 rounded-md hover:bg-green-600 transition-all duration-300 hover:text-white"
-            >
-              সাইন ইন
-            </Link>
-            <Link
-              href="/sign-up"
-              className="font-bold text-[12px] md:text-[14px] text-white bg-[#05893E] px-3 pt-2 pb-1.5 md:px-4 md:pt-3 md:pb-2.5 rounded-md hover:bg-green-900 transition-all duration-300"
-            >
-              সাইন আপ
-            </Link>
-          </div>
+          <UserAuth />
         </div>
 
         <NavCategories />

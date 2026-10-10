@@ -3,6 +3,10 @@ interface IChange{
     dir: "up" | "down" | "flat"
     pct: number
 }
+interface IMarket{
+    min: number
+    max: number
+}
 
 export interface IType{
     id: number | string,
@@ -18,5 +22,5 @@ export interface IType{
     lastWeek: number,
     lastMonth: number,
     change: IChange,
-    markets: []
+    markets: IMarket
 }

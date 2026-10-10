@@ -2,11 +2,13 @@ import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { IType } from "./types/type";
 import ItemCard from "./components/ItemCard";
 import Banner from "./components/Banner";
+import { useSession } from "./lib/auth-client";
 
 export default async function Home() {
   //all products
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
+    // "https://api.api-store.workers.dev/api/bazardor/products",
+    "https://api.abcz.workers.dev/api/bazardor/products",
   );
   const data: IType[] = await res.json();
   // console.log(data.length);
@@ -31,6 +33,7 @@ export default async function Home() {
   const toBanglaNumber = (value: number | string) => {
     return String(value).replace(/\d/g, (digit) => "০১২৩৪৫৬৭৮৯"[Number(digit)]);
   };
+
   return (
     <div className="flex flex-col gap-5 pt-7 pb-20">
       <div>

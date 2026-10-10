@@ -7,7 +7,7 @@ const Banner = () => {
   return (
     <div className="flex flex-col md:flex-row justify-between p-5 gap-5 bg-white border border-gray-200 rounded-xl">
       <div className="">
-        <p className="font-medium text-[14px] text-[#05893E] F]  bg-[#ddf7e8] p-1 inline rounded-2xl px-3">
+        <p className="font-medium font-serif text-[14px] text-[#05893E] F]  bg-[#ddf7e8] p-2 pt-2.5 inline rounded-2xl px-3">
           {" "}
           {date}
         </p>

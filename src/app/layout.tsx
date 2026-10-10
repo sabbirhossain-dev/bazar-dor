@@ -33,6 +33,7 @@ import "./globals.css";
 import { Hind_Siliguri } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { Toaster } from "react-hot-toast";
 
 const hindSiliguri = Hind_Siliguri({
   variable: "--font-hind-siliguri",
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="flex min-h-full flex-col font-bangla">
         <Navbar />
         <main className="mx-auto w-full max-w-7xl">{children}</main>
+        <Toaster position="top-right" reverseOrder={false} />
         <Footer />
       </body>
     </html>

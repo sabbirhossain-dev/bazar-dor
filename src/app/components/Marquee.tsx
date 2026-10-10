@@ -6,7 +6,8 @@ import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 const MarqueeComponent = async () => {
   //all products
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
+    // "https://api.api-store.workers.dev/api/bazardor/products",
+    "https://api.abcz.workers.dev/api/bazardor/products",
   );
   const data = await res.json();
   //   const marqueeData = data.slice(0, 20);
@@ -36,8 +37,8 @@ const MarqueeComponent = async () => {
             >
               <p className="font-medium text-[14px] text-[#1D271F] flex items-center gap-2">
                 {`${item.categoryIcon} ${item.nameBn} `}
-                <span className="font-normal">
-                  {`${item.today} টাকা/${unitBn[item.unit] || item.unit}`}
+                <span className="font-normal font-serif">
+                  {`${toBanglaNumber(item.today)} টাকা/${unitBn[item.unit] || item.unit}`}
                 </span>
               </p>
               <p className="flex items-center">
@@ -54,7 +55,7 @@ const MarqueeComponent = async () => {
                 )}
 
                 <span
-                  className={`font-semibold ${
+                  className={`font-semibold font-serif ${
                     item.change.dir === "up"
                       ? "text-red-600"
                       : item.change.dir === "down"

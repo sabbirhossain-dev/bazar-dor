@@ -7,9 +7,13 @@ interface ICategory {
 }
 
 const NavCategories = async () => {
-  const res = await fetch(
+  let res = await fetch(
     "https://api.api-store.workers.dev/api/bazardor/categories",
   );
+  if (!res.ok) {
+    res = await fetch("https://api.abcz.workers.dev/api/bazardor/categories");
+  }
+
   const data = await res.json();
 
   return (

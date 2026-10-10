@@ -3,6 +3,9 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { FaGoogle, FaGithub, FaArrowLeft } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
+import { authClient, useSession } from "@/app/lib/auth-client";
 
 type FormErrors = {
   name?: string;
@@ -15,6 +18,8 @@ export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
+
+  const { data: session, isPending } = useSession();
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
@@ -36,19 +41,33 @@ export default function SignInPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const user = {
-      email,
-      password,
-    };
-    console.log(user);
 
     if (!validateForm()) return;
 
-    // Validation successful.
-    // এখানে Better Auth-এর signUp.email() যুক্ত করবে.
-    console.log("Form validation successful");
+    try {
+      const { data, error } = await authClient.signIn.email({
+        email: email.trim(),
+        password,
+        callbackURL: "/",
+      });
+
+      if (error) {
+        toast.error(error.message || "সাইন ইন করা যায়নি।");
+        console.error("Sign in error:", error);
+        return;
+      }
+
+      if (data) {
+        toast.success("সফলভাবে সাইন ইন হয়েছে!");
+
+        redirect("/");
+      }
+    } catch (error) {
+      console.error("Sign in error:", error);
+      // toast.error("সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+    }
   };
 
   const inputClass = (hasError: boolean) =>
@@ -57,6 +76,28 @@ export default function SignInPage() {
         ? "border-red-500 focus:border-red-600"
         : "border-[#DFE7DF] focus:border-[#07863F]"
     }`;
+
+  // sign in with google
+  const handleSignInWithGoogle = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+      // callbackURL: "/",
+    });
+    if (data) {
+      toast.success("সফলভাবে সাইন ইন হয়েছে!");
+    }
+  };
+
+  //signin with github
+  const handleSignInWithGithub = async () => {
+    const data = await authClient.signIn.social({
+      provider: "github",
+      // callbackURL: "/",
+    });
+    if (data) {
+      toast.success("সফলভাবে সাইন ইন হয়েছে!");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F0F5F0] px-4 pt-9 pb-6 font-bangla text-[#29352D]">
@@ -144,16 +185,18 @@ export default function SignInPage() {
 
           <div className="grid grid-cols-2 gap-2">
             <button
+              onClick={handleSignInWithGoogle}
               type="button"
-              className="flex h-[34px] items-center justify-center gap-1 rounded-[7px] border border-[#DFE7DF] text-[11px] font-semibold transition hover:bg-[#F0F5F0]"
+              className="flex cursor-pointer h-[34px] items-center justify-center gap-1 rounded-[7px] border border-[#DFE7DF] text-[11px] font-semibold transition hover:bg-[#F0F5F0]"
             >
               <FaGoogle className="text-[13px] text-[#4285F4]" />
               Google দিয়ে চালিয়ে যান
             </button>
 
             <button
+              onClick={handleSignInWithGithub}
               type="button"
-              className="flex h-[34px] items-center justify-center gap-1 rounded-[7px] border border-[#DFE7DF] text-[11px] font-semibold transition hover:bg-[#F0F5F0]"
+              className="flex cursor-pointer h-[34px] items-center justify-center gap-1 rounded-[7px] border border-[#DFE7DF] text-[11px] font-semibold transition hover:bg-[#F0F5F0]"
             >
               <FaGithub className="text-[13px]" />
               GitHub দিয়ে চালিয়ে যান

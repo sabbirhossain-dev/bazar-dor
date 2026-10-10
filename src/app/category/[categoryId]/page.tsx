@@ -12,12 +12,14 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   const { categoryId } = await params;
 
   const res = await fetch(
-    `https://api.api-store.workers.dev/api/bazardor/products?category=${categoryId}`,
+    // `https://api.api-store.workers.dev/api/bazardor/products?category=${categoryId}`,
+    `https://api.abcz.workers.dev/api/bazardor/products?category=${categoryId}`,
   );
   const categoryData = await res.json();
 
   const categoryRes = await fetch(
-    `https://api.api-store.workers.dev/api/bazardor/categories/${categoryId}`,
+    // `https://api.api-store.workers.dev/api/bazardor/categories/${categoryId}`,
+    `https://api.abcz.workers.dev/api/bazardor/categories/${categoryId}`,
   );
 
   const categoryItem = await categoryRes.json();

@@ -3,10 +3,14 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { FaGoogle, FaGithub, FaArrowLeft } from "react-icons/fa";
+import { authClient } from "@/app/lib/auth-client";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 type FormErrors = {
   name?: string;
   email?: string;
+  image?: string;
   password?: string;
   confirmPassword?: string;
 };
@@ -14,6 +18,7 @@ type FormErrors = {
 export default function SignUpPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
@@ -39,6 +44,21 @@ export default function SignUpPage() {
       newErrors.email = "সঠিক ইমেইল অ্যাড্রেস লিখুন।";
     }
 
+    // প্রোফাইল ছবির URL যাচাই
+    if (image.trim()) {
+      try {
+        const imageUrl = new URL(image.trim());
+
+        if (
+          !["http:", "https:"].includes(imageUrl.protocol) ||
+          !imageUrl.hostname.includes(".")
+        ) {
+          newErrors.image = "সঠিক ছবির URL দিন।";
+        }
+      } catch {
+        newErrors.image = "সঠিক ছবির URL দিন।";
+      }
+    }
     // Password validation
     if (!password) {
       newErrors.password = "পাসওয়ার্ড লিখুন।";
@@ -65,20 +85,30 @@ export default function SignUpPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validateForm()) return;
     const user = {
       name,
       email,
+      image,
       password,
     };
     console.log(user);
-
-    if (!validateForm()) return;
-
-    // Validation successful.
-    // এখানে Better Auth-এর signUp.email() যুক্ত করবে.
     console.log("Form validation successful");
+
+    const { data, error } = await authClient.signUp.email({
+      ...user,
+      callbackURL: "/", // A URL to redirect to after the user verifies their email (optional)
+    });
+
+    if (data) {
+      toast.success("Sign-up successfully!");
+      redirect("/");
+    }
+    if (error) {
+      console.log("error");
+    }
   };
 
   const inputClass = (hasError: boolean) =>
@@ -149,6 +179,37 @@ export default function SignUpPage() {
               />
               {errors.email && (
                 <p className="mt-1 text-[11px] text-red-600">{errors.email}</p>
+              )}
+            </div>
+
+            {/* প্রোফাইল ছবির URL */}
+            <div>
+              <label
+                htmlFor="image"
+                className="mb-1 block text-[12px] font-bold"
+              >
+                প্রোফাইল ছবি URL
+                <span className="ml-1 text-xs font-normal text-gray-400">
+                  (ঐচ্ছিক)
+                </span>
+              </label>
+
+              <input
+                id="image"
+                name="image"
+                type="url"
+                autoComplete="url"
+                value={image}
+                onChange={(e) => {
+                  setImage(e.target.value);
+                  setErrors((prev) => ({ ...prev, image: undefined }));
+                }}
+                placeholder="https://example.com/profile.jpg"
+                className={inputClass(!!errors.image)}
+              />
+
+              {errors.image && (
+                <p className="mt-1 text-[11px] text-red-600">{errors.image}</p>
               )}
             </div>
 
