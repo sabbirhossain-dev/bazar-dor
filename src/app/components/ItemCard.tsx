@@ -6,6 +6,16 @@ const ItemCard = ({ data }: { data: IType }) => {
   const toBanglaNumber = (value: number | string) => {
     return String(value).replace(/\d/g, (digit) => "০১২৩৪৫৬৭৮৯"[Number(digit)]);
   };
+  const unitBn: Record<string, string> = {
+    kg: "কেজি",
+    gram: "গ্রাম",
+    g: "গ্রাম",
+    litre: "লিটার",
+    ml: "মিলিলিটার",
+    piece: "পিস",
+    dozen: "ডজন",
+    maund: "মণ",
+  };
 
   return (
     <div className="w-full rounded-md border border-[#E0E8E1] bg-[#FFFFFF] p-4 hover:shadow-md hover:border-green-300 transition-all duration-300">
@@ -23,7 +33,7 @@ const ItemCard = ({ data }: { data: IType }) => {
           </h3>
 
           <p className="text-[12px] leading-[16px] text-[#1D271F]">
-            প্রতি {data.unit === "kg" ? "কেজি" : data.unit}
+            প্রতি {unitBn[data.unit] || data.unit}
           </p>
         </div>
       </div>
