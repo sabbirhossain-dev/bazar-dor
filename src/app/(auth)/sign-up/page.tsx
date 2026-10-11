@@ -7,6 +7,7 @@ import { authClient } from "@/app/lib/auth-client";
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 type FormErrors = {
   name?: string;
@@ -23,6 +24,8 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const validateForm = () => {
     const newErrors: FormErrors = {};
@@ -86,7 +89,7 @@ export default function SignUpPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateForm()) return;
     const user = {
@@ -244,22 +247,41 @@ export default function SignUpPage() {
               >
                 পাসওয়ার্ড
               </label>
-              <input
-                id="password"
-                type="password"
-                autoComplete="new-password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  setErrors((prev) => ({
-                    ...prev,
-                    password: undefined,
-                    confirmPassword: undefined,
-                  }));
-                }}
-                placeholder="কমপক্ষে ৮ অক্ষর"
-                className={inputClass(!!errors.password)}
-              />
+
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setErrors((prev) => ({
+                      ...prev,
+                      password: undefined,
+                      confirmPassword: undefined,
+                    }));
+                  }}
+                  placeholder="কমপক্ষে ৮ অক্ষর"
+                  className={`${inputClass(!!errors.password)} pr-10`}
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800"
+                  aria-label={
+                    showPassword ? "পাসওয়ার্ড লুকান" : "পাসওয়ার্ড দেখুন"
+                  }
+                >
+                  {showPassword ? (
+                    <IoEyeOutline size={16} className="cursor-pointer" />
+                  ) : (
+                    <IoEyeOffOutline size={16} className="cursor-pointer" />
+                  )}
+                </button>
+              </div>
+
               {errors.password && (
                 <p className="mt-1 text-[11px] text-red-600">
                   {errors.password}
@@ -275,21 +297,42 @@ export default function SignUpPage() {
               >
                 পাসওয়ার্ড নিশ্চিত করুন
               </label>
-              <input
-                id="confirmPassword"
-                type="password"
-                autoComplete="new-password"
-                value={confirmPassword}
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
-                  setErrors((prev) => ({
-                    ...prev,
-                    confirmPassword: undefined,
-                  }));
-                }}
-                placeholder="আবার লিখুন"
-                className={inputClass(!!errors.confirmPassword)}
-              />
+
+              <div className="relative">
+                <input
+                  id="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  autoComplete="new-password"
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                    setErrors((prev) => ({
+                      ...prev,
+                      confirmPassword: undefined,
+                    }));
+                  }}
+                  placeholder="আবার লিখুন"
+                  className={`${inputClass(!!errors.confirmPassword)} pr-10`}
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800"
+                  aria-label={
+                    showConfirmPassword
+                      ? "নিশ্চিত পাসওয়ার্ড লুকান"
+                      : "নিশ্চিত পাসওয়ার্ড দেখুন"
+                  }
+                >
+                  {showConfirmPassword ? (
+                    <IoEyeOutline size={16} className="cursor-pointer" />
+                  ) : (
+                    <IoEyeOffOutline size={16} className="cursor-pointer" />
+                  )}
+                </button>
+              </div>
+
               {errors.confirmPassword && (
                 <p className="mt-1 text-[11px] text-red-600">
                   {errors.confirmPassword}

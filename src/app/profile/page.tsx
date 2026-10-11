@@ -4,11 +4,14 @@ import Image from "next/image";
 import { authClient } from "../lib/auth-client";
 import defaultUser from "../../../public/default-user2.jpg";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const ProfilePage = () => {
   const { data: session, isPending } = authClient.useSession();
 
   // সেশন থেকে ইউজারের নাম ইনিশিয়াল স্টেটে সেট করা
+
+  const router = useRouter();
 
   const handleUpdateUser = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,16 +21,23 @@ const ProfilePage = () => {
     if (!userData.image || (userData.image as string).trim() === "") {
       delete userData.image;
     }
+    if (!userData.name || (userData.name as string).trim() === "") {
+      delete userData.name;
+    }
     console.log(userData);
-    await authClient.updateUser({
+    const data = await authClient.updateUser({
       ...userData,
     });
+    if (!data) {
+      toast.error("hoinai!");
+    }
     toast.success("প্রোফাইল সফলভাবে আপডেট হয়েছে!");
   };
 
   const handleSignOut = async () => {
     await authClient.signOut();
     toast.success("সফলভাবে লগআউট হয়েছে!");
+    router.replace("/sign-in");
   };
 
   if (isPending) {
@@ -74,7 +84,7 @@ const ProfilePage = () => {
 
           <button
             onClick={handleSignOut}
-            className="w-full sm:w-auto px-4 py-2 border border-red-200 text-red-600 rounded-xl text-sm font-medium hover:bg-red-50 transition-colors flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-4 py-2 border border-red-200 text-red-600 rounded-xl text-sm font-medium hover:bg-red-50 transition-colors flex items-center justify-center gap-2 cursor-pointer"
           >
             <span className="text-base">←</span> সাইন আউট
           </button>
@@ -162,7 +172,7 @@ const ProfilePage = () => {
 
             <button
               type="submit"
-              className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 px-5 text-sm font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-green-600/25 active:translate-y-0 active:scale-[0.99]"
+              className="group flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 px-5 cursor-pointer text-sm font-semibold text-white shadow-lg shadow-green-600/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-green-600/25 active:translate-y-0 active:scale-[0.99]"
             >
               আপডেট
               {/* প্রোফাইল

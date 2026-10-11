@@ -1,6 +1,6 @@
 // import ItemCard from "@/app/components/ItemCard";
 import SortFunction from "@/app/components/SortFunction";
-// import { IType } from "@/app/types/type";
+import { notFound } from "next/navigation"; // import { IType } from "@/app/types/type";
 
 type CategoryPageProps = {
   params: Promise<{
@@ -25,8 +25,10 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   );
 
   const categoryItem = await categoryRes.json();
-  console.log(categoryItem);
 
+  if (!categoryId) {
+    notFound();
+  }
   const toBanglaNumber = (value: number | string) => {
     return String(value).replace(/\d/g, (digit) => "০১২৩৪৫৬৭৮৯"[Number(digit)]);
   };

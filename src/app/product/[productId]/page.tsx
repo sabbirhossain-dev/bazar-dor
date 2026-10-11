@@ -11,8 +11,7 @@ const toBn = (value: number | string) =>
 const price = (value: number) => `${toBn(value)} টাকা`;
 
 export default async function ProductDetailsPage({ params }: Props) {
-  const { productId, categoryId } = await params;
-  console.log(productId, categoryId);
+  const { productId } = await params;
 
   const res = await fetch(
     // `https://api.abcz.workers.dev/api/bazardor/products/${productId}`,
@@ -29,6 +28,10 @@ export default async function ProductDetailsPage({ params }: Props) {
   }
 
   const product: IType = await res.json();
+
+  const categoryId = product.category;
+
+  console.log(productId, categoryId);
 
   if (!product || !Array.isArray(product.markets)) {
     return (
@@ -91,8 +94,7 @@ export default async function ProductDetailsPage({ params }: Props) {
           </Link>
           <span>›</span>
           <Link
-            href={`/`}
-            // href={`/category/${categoryId}`}
+            href={`/category/${categoryId}`}
             // href={`/`}
             className="hover:text-[#07883F]"
           >
