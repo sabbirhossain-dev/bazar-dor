@@ -24,7 +24,6 @@ const ProfilePage = () => {
     if (!userData.name || (userData.name as string).trim() === "") {
       delete userData.name;
     }
-    console.log(userData);
     const data = await authClient.updateUser({
       ...userData,
     });
