@@ -2,6 +2,7 @@ import MarqueeText from "react-marquee-text";
 import "react-marquee-text/dist/styles.css";
 import { IType } from "../types/type";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import Link from "next/link";
 
 const MarqueeComponent = async () => {
   //all products
@@ -36,37 +37,42 @@ const MarqueeComponent = async () => {
               key={item.id}
               className="flex gap-1 items-center border-r px-5 py-3 border-b border-gray-200 hover:bg-gray-100 transition-opacity duration-300"
             >
-              <p className="font-medium text-[12px] md:text-[14px] text-[#1D271F] flex items-center gap-2">
-                {`${item.categoryIcon} ${item.nameBn} `}
-                <span className="font-normal font-serif">
-                  {`${toBanglaNumber(item.today)} টাকা/${unitBn[item.unit] || item.unit}`}
-                </span>
-              </p>
-              <p className="flex items-center text-[12px] md:text-[14px]">
-                {item.change.dir === "up" && (
-                  <FaCaretUp className="text-red-600 text-[16px] md:text-[22px]" />
-                )}
+              <Link
+                href={`/product/${item.id}`}
+                className="flex gap-1 items-center"
+              >
+                <p className="font-medium text-[12px] md:text-[14px] text-[#1D271F] flex items-center gap-2">
+                  {`${item.categoryIcon} ${item.nameBn} `}
+                  <span className="font-normal font-serif">
+                    {`${toBanglaNumber(item.today)} টাকা/${unitBn[item.unit] || item.unit}`}
+                  </span>
+                </p>
+                <p className="flex items-center text-[12px] md:text-[14px]">
+                  {item.change.dir === "up" && (
+                    <FaCaretUp className="text-red-600 text-[16px] md:text-[22px]" />
+                  )}
 
-                {item.change.dir === "down" && (
-                  <FaCaretDown className="text-green-600 text-[16px] md:text-[22px]" />
-                )}
+                  {item.change.dir === "down" && (
+                    <FaCaretDown className="text-green-600 text-[16px] md:text-[22px]" />
+                  )}
 
-                {item.change.dir === "flat" && (
-                  <span className="text-gray-600">-</span>
-                )}
+                  {item.change.dir === "flat" && (
+                    <span className="text-gray-600">-</span>
+                  )}
 
-                <span
-                  className={`font-semibold font-serif ${
-                    item.change.dir === "up"
-                      ? "text-red-600"
-                      : item.change.dir === "down"
-                        ? "text-green-600"
-                        : "text-gray-500"
-                  }`}
-                >
-                  {toBanglaNumber(item.change.pct)}%
-                </span>
-              </p>
+                  <span
+                    className={`font-semibold font-serif ${
+                      item.change.dir === "up"
+                        ? "text-red-600"
+                        : item.change.dir === "down"
+                          ? "text-green-600"
+                          : "text-gray-500"
+                    }`}
+                  >
+                    {toBanglaNumber(item.change.pct)}%
+                  </span>
+                </p>
+              </Link>
             </div>
           ))}
         </div>

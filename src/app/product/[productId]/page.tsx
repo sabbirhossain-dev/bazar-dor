@@ -120,9 +120,26 @@ export default async function ProductDetailsPage({ params }: Props) {
                 {" · "}
                 {product.categoryNameBn}
               </p>
-              <p className="text-[12px] md:text-[14px] font-serif text-[#1D271F] font-normal">
-                গতকালের তুলনায় আজকের দামের পরিবর্তন: {toBn(product.yesterday)} →{" "}
-                {toBn(product.today)} টাকা
+
+              {/* dam barse na komse */}
+              <p className="text-[12px] md:text-[14px] font-normal">
+                {product.today > product.yesterday ? (
+                  <span>
+                    গতকালের তুলনায় আজ দাম{" "}
+                    <span className="text-[#E54848] font-bold"> বেড়েছে</span> ·
+                    {toBn(product.today - product.yesterday)} টাকা
+                  </span>
+                ) : product.today < product.yesterday ? (
+                  <span>
+                    গতকালের তুলনায় আজ দাম{" "}
+                    <span className="text-[#079447] font-bold">কমেছে</span> ·
+                    {toBn(product.yesterday - product.today)} টাকা
+                  </span>
+                ) : (
+                  <span className="text-[#6B7280]">
+                    গতকালের তুলনায় আজ দাম অপরিবর্তিত
+                  </span>
+                )}
               </p>
             </div>
           </div>
