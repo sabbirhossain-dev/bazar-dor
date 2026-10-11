@@ -98,8 +98,6 @@ export default function SignUpPage() {
       image,
       password,
     };
-    console.log(user);
-    console.log("Form validation successful");
 
     const { data, error } = await authClient.signUp.email({
       ...user,
