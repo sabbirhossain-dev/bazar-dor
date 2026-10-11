@@ -1,7 +1,6 @@
 
 ## 🛒 বাজার দর | Bazar Dor
 
-<<<<<<< HEAD
 
 ### Your Daily Market Price Companion 🇧🇩
 
@@ -93,6 +92,4 @@ Show a helpful 404 page for invalid routes.
 **Name:** Md Sabbir Hossain  
 **Email:** [hossainsabbir309@gmail.com](mailto:hossainsabbir309@gmail.com)
 
-> > > > > > > 7938dbe (change readme)
 
-> > > > > > > 4c2ffea (add protected route, update profile)
