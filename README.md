@@ -75,8 +75,9 @@ Show a helpful 404 page for invalid routes.
 | **Vercel** | Application deployment and hosting |
 
 
-**by:**
-**Name: Md Sabbir Hossain**
-*Email:* hossainsabbir309@gmail.com
+## 👨‍💻 Author
+
+**By:** Md Sabbir Hossain  
+**Email:** [hossainsabbir309@gmail.com](mailto:hossainsabbir309@gmail.com)
 
 
