@@ -2,10 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { FaGoogle, FaGithub, FaArrowLeft } from "react-icons/fa";
+import { FaGithub, FaArrowLeft } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
 import { authClient, useSession } from "@/app/lib/auth-client";
+import { FcGoogle } from "react-icons/fc";
 
 type FormErrors = {
   name?: string;
@@ -103,10 +104,10 @@ export default function SignInPage() {
     <div className="min-h-screen bg-[#F0F5F0] px-4 pt-9 pb-6 font-bangla text-[#29352D]">
       <div className="mx-auto w-full max-w-[348px]">
         <div className="mb-5 text-center">
-          <h1 className="text-[22px] leading-8 font-bold tracking-tight">
+          <h1 className="text-[22px] md:text-[24px] leading-8 font-bold tracking-tight">
             সাইন ইন
           </h1>
-          <p className="mt-0.5 text-[12px] leading-5 text-[#849087]">
+          <p className="mt-0.5 text-[12px] md:text-[13px] leading-5 text-[#849087]">
             বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।{" "}
           </p>
         </div>
@@ -171,7 +172,7 @@ export default function SignInPage() {
 
             <button
               type="submit"
-              className="h-[35px] w-full rounded-[7px] bg-[#07883F] text-[12px] font-semibold text-white shadow-[0_3px_3px_rgba(0,0,0,0.22)] transition hover:bg-[#067637] active:translate-y-px"
+              className="h-[35px] cursor-pointer w-full rounded-[7px] bg-[#07883F] text-[12px] font-semibold text-white shadow-[0_3px_3px_rgba(0,0,0,0.22)] transition hover:bg-[#067637] active:translate-y-px"
             >
               সাইন ইন
             </button>
@@ -189,7 +190,7 @@ export default function SignInPage() {
               type="button"
               className="flex cursor-pointer h-[34px] items-center justify-center gap-1 rounded-[7px] border border-[#DFE7DF] text-[11px] font-semibold transition hover:bg-[#F0F5F0]"
             >
-              <FaGoogle className="text-[13px] text-[#4285F4]" />
+              <FcGoogle className="text-[13px] " />
               Google দিয়ে চালিয়ে যান
             </button>
 
@@ -198,7 +199,7 @@ export default function SignInPage() {
               type="button"
               className="flex cursor-pointer h-[34px] items-center justify-center gap-1 rounded-[7px] border border-[#DFE7DF] text-[11px] font-semibold transition hover:bg-[#F0F5F0]"
             >
-              <FaGithub className="text-[13px]" />
+              <FaGithub className="text-[13px] cursor-pointer" />
               GitHub দিয়ে চালিয়ে যান
             </button>
           </div>

@@ -18,12 +18,13 @@
     /* --foreground: #ededed;
   } */
 
-
-  @theme inline {
-    --font-bangla: var(--font-hind-siliguri);
+  html {
+    scroll-behavior: smooth;
+  }
+  body{
+    background: #FAFCFA ;
   }
 
-body{
-  background: #FAFCFA ;
-  scroll-behavior: smooth;
-}
+@theme inline {
+    --font-bangla: var(--font-hind-siliguri);
+  }

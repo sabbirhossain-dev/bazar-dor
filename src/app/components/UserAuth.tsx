@@ -5,7 +5,8 @@ import { authClient } from "../lib/auth-client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Image from "next/image";
-import defaultUser from "../../../public/default-user.jpg";
+// import defaultUser from "../../../public/default-user.jpg";
+import defaultUser2 from "../../../public/default-user2.jpg";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { useState } from "react";
 import { IoReturnDownBack } from "react-icons/io5";
@@ -17,8 +18,20 @@ const UserAuth = () => {
   // console.log("from user", session);
   const router = useRouter();
 
+  // Skeleton Loading
   if (isPending) {
-    return "Loading...";
+    return (
+      <div className="flex items-center gap-2 md:gap-3 animate-pulse">
+        {/* User Avatar Skeleton */}
+        <div className="h-8 w-10 md:h-10 md:w-10 rounded-xl bg-gray-200" />
+
+        {/* User Name Skeleton */}
+        <div className="hidden md:block h-4 w-24 rounded-md bg-gray-200" />
+
+        {/* Dropdown Icon Skeleton */}
+        <div className="h-4 w-6 rounded-full bg-gray-200" />
+      </div>
+    );
   }
 
   const handleLogOut = async () => {
@@ -38,6 +51,7 @@ const UserAuth = () => {
     } catch {
       toast.error("লগআউট করার সময় সমস্যা হয়েছে!");
     }
+    setUserToggle(!userToggle);
   };
 
   const handleUserButton = () => {
@@ -49,9 +63,9 @@ const UserAuth = () => {
       {session ? (
         <>
           <div className="flex gap-2 items-center relative">
-            <div>
+            <div className="bg-gray-100 rounded-2xl p-0.5">
               <Image
-                src={session?.user.image || defaultUser}
+                src={session?.user.image || defaultUser2}
                 alt="user"
                 height={20}
                 width={20}
@@ -68,7 +82,7 @@ const UserAuth = () => {
 
             {/* user toggle */}
             {userToggle && (
-              <div className="absolute right-0 top-9 md:top-11 z-100 w-max min-w-48 rounded-lg border border-gray-200 bg-white p-4 shadow-lg">
+              <div className="absolute right-0 top-10 md:top-12 z-100 w-max min-w-48 rounded-lg border border-gray-200 bg-white p-4 shadow-lg">
                 <div className="flex flex-col gap-1">
                   <div className="flex flex-col gap-.5">
                     <p className=" text-[14px] font-semibold text-[#1D271F]">
@@ -78,7 +92,12 @@ const UserAuth = () => {
                       {session?.user.email}
                     </p>
                   </div>
-                  <Link href="/profile">
+                  <Link
+                    href="/profile"
+                    onClick={() => {
+                      setUserToggle(!userToggle);
+                    }}
+                  >
                     <p className="px-3 py-1 flex items-center rounded-md cursor-pointer text-[14px] font-normal text-[#1D271F] hover:bg-gray-200 transition-colors duration-300">
                       👤 আমার প্রোফাইল
                     </p>

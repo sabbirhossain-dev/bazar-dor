@@ -40,8 +40,8 @@ export default function SortedItems({ data }: SortedItemsProps) {
           className="rounded-md border border-gray-300 bg-white px-3 py-2 text-[13px] md:text-[16px] font-normal text-[#1D271F] outline-none focus:border-green-600"
         >
           <option value="default">ডিফল্ট</option>
-          <option value="asc">কম দাম থেকে বেশি দাম</option>
-          <option value="desc">বেশি দাম থেকে কম দাম</option>
+          <option value="asc">দাম: কম থেকে বেশি </option>
+          <option value="desc">দাম: বেশি থেকে কম</option>
         </select>
       </div>
 

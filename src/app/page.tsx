@@ -74,7 +74,7 @@ export default async function Home() {
         </div>
 
         {/* সব পণ্য || all product part*/}
-        <div id="all">
+        <section id="all" className="scroll-mt-44">
           <h2 className="font-bold text-black py-3 pb-1">সব পণ্য</h2>
           <p className="font-normal text-[14px] text-[#1D271F] opacity-70 pb-3">{`মোট ${toBanglaNumber(data.length)}টি পণ্য দেখানো হচ্ছে`}</p>
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 ">
@@ -82,7 +82,7 @@ export default async function Home() {
               <ItemCard key={item.id} data={item} />
             ))}
           </div>
-        </div>
+        </section>
       </section>
     </div>
   );

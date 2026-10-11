@@ -2,10 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { FaGoogle, FaGithub, FaArrowLeft } from "react-icons/fa";
+import { FaGithub, FaArrowLeft } from "react-icons/fa";
 import { authClient } from "@/app/lib/auth-client";
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
 
 type FormErrors = {
   name?: string;
@@ -118,14 +119,36 @@ export default function SignUpPage() {
         : "border-[#DFE7DF] focus:border-[#07863F]"
     }`;
 
+  // sign in with google
+  const handleSignInWithGoogle = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+      // callbackURL: "/",
+    });
+    if (data) {
+      toast.success("সফলভাবে সাইন ইন হয়েছে!");
+    }
+  };
+
+  //signin with github
+  const handleSignInWithGithub = async () => {
+    const data = await authClient.signIn.social({
+      provider: "github",
+      // callbackURL: "/",
+    });
+    if (data) {
+      toast.success("সফলভাবে সাইন ইন হয়েছে!");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#F0F5F0] px-4 pt-9 pb-6 font-bangla text-[#29352D]">
       <div className="mx-auto w-full max-w-[348px]">
         <div className="mb-5 text-center">
-          <h1 className="text-[22px] leading-8 font-bold tracking-tight">
+          <h1 className="text-[22px] md:text-[24px] leading-8 font-bold tracking-tight">
             অ্যাকাউন্ট তৈরি করুন
           </h1>
-          <p className="mt-0.5 text-[12px] leading-5 text-[#849087]">
+          <p className="mt-0.5 text-[12px] md:text-[13px] leading-5 text-[#849087]">
             বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।
           </p>
         </div>
@@ -276,7 +299,7 @@ export default function SignUpPage() {
 
             <button
               type="submit"
-              className="h-[35px] w-full rounded-[7px] bg-[#07883F] text-[12px] font-semibold text-white shadow-[0_3px_3px_rgba(0,0,0,0.22)] transition hover:bg-[#067637] active:translate-y-px"
+              className="h-[35px] w-full rounded-[7px] bg-[#07883F] text-[12px] font-semibold text-white shadow-[0_3px_3px_rgba(0,0,0,0.22)] transition hover:bg-[#067637] active:translate-y-px cursor-pointer"
             >
               অ্যাকাউন্ট তৈরি করুন
             </button>
@@ -290,16 +313,18 @@ export default function SignUpPage() {
 
           <div className="grid grid-cols-2 gap-2">
             <button
+              onClick={handleSignInWithGoogle}
               type="button"
-              className="flex h-[34px] items-center justify-center gap-1 rounded-[7px] border border-[#DFE7DF] text-[11px] font-semibold transition hover:bg-[#F0F5F0]"
+              className="flex cursor-pointer h-[34px] items-center justify-center gap-1 rounded-[7px] border border-[#DFE7DF] text-[11px] font-semibold transition hover:bg-[#F0F5F0]"
             >
-              <FaGoogle className="text-[13px] text-[#4285F4]" />
+              <FcGoogle className="text-[13px]" />
               Google দিয়ে চালিয়ে যান
             </button>
 
             <button
+              onClick={handleSignInWithGithub}
               type="button"
-              className="flex h-[34px] items-center justify-center gap-1 rounded-[7px] border border-[#DFE7DF] text-[11px] font-semibold transition hover:bg-[#F0F5F0]"
+              className="flex h-[34px] cursor-pointer items-center justify-center gap-1 rounded-[7px] border border-[#DFE7DF] text-[11px] font-semibold transition hover:bg-[#F0F5F0]"
             >
               <FaGithub className="text-[13px]" />
               GitHub দিয়ে চালিয়ে যান
