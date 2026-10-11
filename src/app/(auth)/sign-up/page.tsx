@@ -105,7 +105,7 @@ export default function SignUpPage() {
     });
 
     if (data) {
-      toast.success("Sign-up successfully!");
+      toast.success("সফলভাবে সাইন আপ হয়েছে!");
       redirect("/");
     }
     if (error) {
