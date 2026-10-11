@@ -1,9 +1,6 @@
-import React from "react";
-
 const CategoryLoading = () => {
   return (
     <div>
-      return (
       <main className="min-h-screen bg-[#F0F5F0] px-4 pb-20 sm:px-8 md:px-0 animate-pulse">
         <div className="mx-auto max-w-7xl">
           {/* Category header skeleton */}
